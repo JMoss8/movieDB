@@ -1,12 +1,15 @@
 import React from 'react'
-import './App.css'
+import {BrowserRouter, Route} from 'react-router-dom'
 
-const App = () => {
-  return (
-    <div className="App">
-      {process.env.REACT_APP_API_KEY}
-    </div>
-  )
-}
+import Landing from 'components/Landing'
+
+const App = () => (
+  <div className="App">
+    <BrowserRouter>
+      <Route exact path='/' component={Landing}/>
+      <Route exact path='/movie' component={Landing}/>
+    </BrowserRouter>
+  </div>
+)
 
 export default App
