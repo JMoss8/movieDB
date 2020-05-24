@@ -1,40 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 
+import services from 'services'
 import Carousel from './Carousel'
 
-const Landing = () => {
-  const [moviesAll, setMoviesAll] = useState(undefined)
+const moviesAll = [{
+  title: 'Popular movies',
+  service: services.getMovies({sort_by: 'popularity.desc'}),
+}, {
+  title: 'Popular TV series',
+  service: services.getTv({sort_by: 'popularity.desc'}),
+}, {
+  title: 'Family',
+  service: services.getMovies({sort_by: 'popularity.desc', with_genres: '10751'}),
+}, {
+  title: 'Documentary',
+  service: services.getMovies({sort_by: 'popularity.desc', with_genres: '99'}),
+}]
 
-  useEffect(() => {
-    setMoviesAll(undefined)
+const Landing = () => (
+  <div>
+    <h1>movieDB</h1>
 
-    // request
-    setMoviesAll([{
-      title: 'Popular movies',
-      movies: [],
-    }, {
-      title: 'Popular TV series',
-      movies: [],
-    }, {
-      title: 'Family',
-      movies: [],
-    }, {
-      title: 'Documentary',
-      movies: [],
-    }])
-  }, [])
-
-  return (
-    <div>
-      <h1>movieDB</h1>
-
-      {moviesAll ? (
-        moviesAll.map(moviesSet => <Carousel {...moviesSet}/>)
-      ) : (
-        'loading...'
-      )}
-    </div>
-  )
-}
+    {moviesAll.map((moviesSet, i) => <Carousel key={"moviesSet" + i} {...moviesSet}/>)}
+  </div>
+)
 
 export default Landing
