@@ -3,7 +3,9 @@ import './App.css'
 
 const App = () => {
   return (
-    <div className="App"/>
+    <div className="App">
+      {process.env.REACT_APP_API_KEY}
+    </div>
   )
 }
 
