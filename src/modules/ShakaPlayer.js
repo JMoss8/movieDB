@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect} from 'react'
 import shaka from 'shaka-player/dist/shaka-player.ui'
 import 'shaka-player/dist/controls.css'
 import muxjs from 'mux.js'
@@ -50,11 +50,8 @@ function onError(error) {
   console.error('Error code', error.code, 'object', error)
 }
 
-const ShakaPlayer = ({src, autoPlay = true}) => {
-  const videoRef = useRef()
-  const videoContainerRef = useRef()
-
-  useEffect(() => initApp(videoRef, videoContainerRef, src), [src])
+const ShakaPlayer = ({src, videoRef, videoContainerRef, autoPlay}) => {
+  useEffect(() => initApp(videoRef, videoContainerRef, src), [src, videoContainerRef, videoRef])
 
   return (
     <div ref={videoContainerRef}>

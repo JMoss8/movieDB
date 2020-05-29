@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import services from 'services'
 import requestHandler from 'utils/requestHandler'
-import ShakaPlayer from 'components/Detail/ShakaPlayer'
+import WatchShaka from 'components/Detail/WatchShaka'
 
 // const src = 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd'
 // const src = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
@@ -17,10 +17,6 @@ const Detail = ({match: {params: {type, id}}}) => {
     requestHandler(services[type === 'movie' ? 'getMovie' : 'getTv'](id)).then(setMovieData)
   }, [id, type])
 
-  const watchMovie = _ => {
-
-  }
-
   return (
     <div>
       {movieData.id ? (
@@ -28,9 +24,7 @@ const Detail = ({match: {params: {type, id}}}) => {
           {movieData.title ?? movieData.name}
           <img src={'http://image.tmdb.org/t/p/w342/' + movieData.poster_path} alt='Poster not found'/>
 
-          <button onClick={watchMovie}>Watch Movie</button>
-
-          <ShakaPlayer src={src}/>
+          <WatchShaka src={src}/>
         </div>
       ) : movieData.loading ? (
         'loading...'
