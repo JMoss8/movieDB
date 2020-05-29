@@ -3,6 +3,7 @@
  *
  * @param makeRequest:    request that should be taken care of, function that returns promise
  * @param onNokResponse:  JSON with error codes (404, 500 etc.) as keys for appropriate error handling functions
+ * @param onFinally:      onFinally optional callback
  */
 export const requestHandler = async (makeRequest, onNokResponse, onFinally) => {
   try {
@@ -13,7 +14,7 @@ export const requestHandler = async (makeRequest, onNokResponse, onFinally) => {
       ) : (
         defaultErrorHandler(response.status + ' ' + response.statusText)
       )
-      return response
+      return {error: true, response}
     }
 
     return response.json()
