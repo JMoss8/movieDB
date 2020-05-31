@@ -5,10 +5,10 @@ const services = {
     () => api.get(`discover/movie`, params),
   discoverTvs: params =>
     () => api.get(`discover/tv`, params),
-  getMovie: id =>
-    () => api.get(`movie/${id}`),
-  getTv: id =>
-    () => api.get(`tv/${id}`),
+  getDetail: (type, id) =>
+    () => api.get(`${type}/${id}`),
+  search: params =>
+    () => api.get(`search/multi`, params)
 }
 
 export default services
