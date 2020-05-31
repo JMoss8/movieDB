@@ -7,7 +7,8 @@ const moviesCarousels = [{
   title: 'Popular movies',
   service: services.discoverMovies({sort_by: 'popularity.desc'}),
 }, {
-  title: 'Popular TV series',
+  type: 'tv',
+  title: 'Popular series',
   service: services.discoverTvs({sort_by: 'popularity.desc'}),
 }, {
   title: 'Family',

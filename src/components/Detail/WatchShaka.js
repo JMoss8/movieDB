@@ -1,6 +1,13 @@
 import React, {useRef} from 'react'
+import styled from 'styled-components'
 
 import ShakaPlayer from 'modules/ShakaPlayer'
+
+const ShakaPlayerContainer = styled.div`
+  width: 0;
+  height: 0;
+  overflow: hidden;
+`
 
 const WatchShaka = ({src}) => {
   const videoRef = useRef()
@@ -13,7 +20,7 @@ const WatchShaka = ({src}) => {
         .catch(console.warn) // TODO fallback - "unhide" player on fullscreen error
       document.onfullscreenchange = _ => {
         if (document.fullscreenElement === null) { // pause the playback on exit
-          videoRef.current.pause()
+          videoRef.current && videoRef.current.pause()
         }
       }
     }
@@ -25,9 +32,9 @@ const WatchShaka = ({src}) => {
         Watch Movie
       </button>
 
-      <div style={{width: '0', height: '0', overflow: 'hidden'}}>
+      <ShakaPlayerContainer>
         <ShakaPlayer src={src} videoRef={videoRef} videoContainerRef={videoContainerRef}/>
-      </div>
+      </ShakaPlayerContainer>
     </>
   )
 }

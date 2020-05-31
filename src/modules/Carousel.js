@@ -1,25 +1,33 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-
+import styled from 'styled-components'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
 
-const Carousel = ({title, items}) => (
+import CarouselItem from 'modules/CarouselItem'
+
+const CarouselContainer = styled.div`
+  margin: 0 -.5em;
+`
+
+const responsive = (() => { // generate valid JSON for AliceCarousel to make it responsive
+  const result = {0: {items: 1}}
+  for (let i = 0; i < 7; i++) result[(i + 2) * 148] = {items: i + 2}
+  return result
+})()
+
+const Carousel = ({title, items, type}) => (
   <div>
     <h2>{title}</h2>
 
-    {items.results ? (
-      <AliceCarousel
-        mouseTrackingEnabled
-        dotsDisabled
-        responsive={{0: {items: 5}}}
-      >
-        {items.results.map(item => (
-          <Link key={item.id} to={`/detail/${item.media_type}/${item.id}`}>
-            {item.title ?? item.name}<br/>
-          </Link>
-        ))}
-      </AliceCarousel>
+    {items && items.results ? (
+      <CarouselContainer>
+        <AliceCarousel
+          items={items.results.map(item => <CarouselItem key={item.id} item={item} type={type}/>)}
+          responsive={responsive}
+          infinite={false}
+          dotsDisabled
+        />
+      </CarouselContainer>
     ) : items.loading ? (
       'loading...'
     ) : (

@@ -1,8 +1,14 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import services from 'services'
+import styled from 'styled-components'
 
+import services from 'services'
 import requestHandler from 'utils/requestHandler'
 import Carousel from 'modules/Carousel'
+
+const SearchStyled = styled.input`
+  display: block;
+  width: 100%;
+`
 
 let debounce
 
@@ -42,17 +48,10 @@ const Search = ({history, match: {params: {query}}}) => {
 
   return (
     <div>
-      <input ref={searchField} onChange={onChange} defaultValue={query}/>
+      <h1>Search</h1>
+      <SearchStyled ref={searchField} placeholder='What are you looking for?' onChange={onChange} defaultValue={query}/>
 
-      {searchData && (
-        searchData.results ? (
-          <Carousel title='Search results' items={searchData}/>
-        ) : searchData.loading ? (
-          'loading'
-        ) : (
-          'error'
-        )
-      )}
+      {searchData && <Carousel title='Search results' items={searchData}/>}
     </div>
   )
 }
